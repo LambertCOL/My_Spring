@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans>
+    <!--Service层-->
+    <bean id="transferService" class="cn.lamb.service.impl.TransferServiceImpl">
+        <!--name="accountDao"指在cn.lamb.service.impl.TransferServiceImpl中的accountDao成员，ref="accountDao"指引用下面已经被管理的bean-->
+        <property name="accountDao" ref="accountDao"></property>
+    </bean>
+
+    <!--Dao层-->
+    <bean id="accountDao" class="cn.lamb.dao.impl.JdbcAccountDaoImpl">
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+
+    <!--代理工厂-->
+    <bean id="proxyFactory" class="cn.lamb.factory.ProxyFactory">
+        <property name="transactionManager" ref="transactionManager"></property>
+    </bean>
+
+    <!--数据库连接工具类-->
+    <bean id="connectionUtils" class="cn.lamb.utils.ConnectionUtils"></bean>
+
+    <!--事务管理器-->
+    <bean id="transactionManager" class="cn.lamb.utils.TransactionManager">
+        <property name="connectionUtils" ref="connectionUtils"></property>
+    </bean>
+</beans>
